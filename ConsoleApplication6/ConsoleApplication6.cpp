@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <conio.h>
 #include <windows.h>
 
@@ -68,7 +68,7 @@ char tetrominoes[7][4][4] = {
     }
 };
 
-void Init() { 
+void Init() {
     for (int i = 0; i < HEIGHT; i++) {
         for (int j = 0; j < WIDTH; j++) {
             field[i][j] = ' ';
@@ -76,10 +76,10 @@ void Init() {
     }
 }
 
-void Draw() { 
+void Draw() {
 
     system("cls");
-    
+
     cout << "=======================" << endl;
     for (int i = 0; i < HEIGHT; i++) {
         cout << "||";
@@ -97,14 +97,11 @@ void Draw() {
         cout << endl;
     }
     cout << "=======================" << endl;
-    cout <<"Счет:" << score << endl;
+    cout << "Счет:" << score << endl;
 }
 void RotatePiece() {
-
-    
     char tempPiece[4][4];
 
-    
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 4; j++) {
             tempPiece[i][j] = currentPiece[i][j];
@@ -114,8 +111,19 @@ void RotatePiece() {
     // Поворачиваем фигуру
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 4; j++) {
-            currentPiece[i][j] = tempPiece[3 - j][i]; 
+            currentPiece[i][j] = tempPiece[3 - j][i];
         }
+    }
+
+    // Проверяем, не выходит ли фигура за пределы игрового поля после поворота
+    if (currentPieceX < 0) {
+        currentPieceX = 0;
+    }
+    if (currentPieceX + 4 > WIDTH) {
+        currentPieceX = WIDTH - 4;
+    }
+    if (currentPieceY + 4 > HEIGHT) {
+        currentPieceY = HEIGHT - 4;
     }
 }
 
@@ -175,14 +183,14 @@ void Update() {
             }
         }
 
-        
+
         score += linesCleared * 10;
 
         // ссброс текущей позиции фигуры
-        currentPieceX = WIDTH / 2 - 2; 
+        currentPieceX = WIDTH / 2 - 2;
         currentPieceY = 0;
 
-        
+
         srand(time(NULL));
         int randomIndex = rand() % 7;
 
@@ -222,7 +230,7 @@ void gameOver() {
     exit(0);
 }
 
-void MainMenu() { 
+void MainMenu() {
     system("cls");
     cout << "=================================================" << endl;
     cout << "||         Тетрис                              ||" << endl;
@@ -230,14 +238,14 @@ void MainMenu() {
     cout << "|| Для управление используйте клавиши W A S D  ||" << endl;
     cout << "|| Для завершения игры нажмите O               ||" << endl;
     cout << "=================================================" << endl;
-    _getch(); 
+    _getch();
 }
 
 int main() {
     setlocale(LC_ALL, "");
-    system("color 3F");
+    
     Init();
-    MainMenu(); 
+    MainMenu();
     while (true) {
         Draw();
         if (_kbhit()) {
@@ -257,7 +265,7 @@ int main() {
         }
 
         Update();
-        Sleep(50);
+        Sleep(1);
     }
     return 0;
 
