@@ -2,6 +2,7 @@
 #include <conio.h>
 #include <windows.h>
 
+
 using namespace std;
 
 const int HEIGHT = 28;
@@ -67,7 +68,7 @@ char tetrominoes[7][4][4] = {
     }
 };
 
-void Init() { //игровое поле, заполнеиие пробелами
+void Init() { 
     for (int i = 0; i < HEIGHT; i++) {
         for (int j = 0; j < WIDTH; j++) {
             field[i][j] = ' ';
@@ -75,10 +76,10 @@ void Init() { //игровое поле, заполнеиие пробелами
     }
 }
 
-void Draw() { //отрисовка игрового поля
+void Draw() { 
 
     system("cls");
-
+    
     cout << "=======================" << endl;
     for (int i = 0; i < HEIGHT; i++) {
         cout << "||";
@@ -96,14 +97,14 @@ void Draw() { //отрисовка игрового поля
         cout << endl;
     }
     cout << "=======================" << endl;
-    cout << "Счет:" << score << endl;
+    cout <<"Счет:" << score << endl;
 }
 void RotatePiece() {
 
-    // создаем временный массив для сохранения повернутой фигуры
+    
     char tempPiece[4][4];
 
-    // копируем текущю фигуру во временный массив
+    
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 4; j++) {
             tempPiece[i][j] = currentPiece[i][j];
@@ -113,12 +114,12 @@ void RotatePiece() {
     // Поворачиваем фигуру
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 4; j++) {
-            currentPiece[i][j] = tempPiece[3 - j][i];
+            currentPiece[i][j] = tempPiece[3 - j][i]; 
         }
     }
 }
 
-bool CheckCollision(int X, int Y) { //проверка на столкновение
+bool CheckCollision(int X, int Y) {
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 4; j++) {
             if (currentPiece[i][j] != ' ') {
@@ -174,14 +175,14 @@ void Update() {
             }
         }
 
-        // обновляем счетчик очков
+        
         score += linesCleared * 10;
 
         // ссброс текущей позиции фигуры
-        currentPieceX = WIDTH / 2 - 2;
+        currentPieceX = WIDTH / 2 - 2; 
         currentPieceY = 0;
 
-
+        
         srand(time(NULL));
         int randomIndex = rand() % 7;
 
@@ -221,7 +222,7 @@ void gameOver() {
     exit(0);
 }
 
-void MainMenu() { //меню
+void MainMenu() { 
     system("cls");
     cout << "=================================================" << endl;
     cout << "||         Тетрис                              ||" << endl;
@@ -229,14 +230,14 @@ void MainMenu() { //меню
     cout << "|| Для управление используйте клавиши W A S D  ||" << endl;
     cout << "|| Для завершения игры нажмите O               ||" << endl;
     cout << "=================================================" << endl;
-    _getch();
+    _getch(); 
 }
 
 int main() {
     setlocale(LC_ALL, "");
-
+    system("color 3F");
     Init();
-    MainMenu();
+    MainMenu(); 
     while (true) {
         Draw();
         if (_kbhit()) {
